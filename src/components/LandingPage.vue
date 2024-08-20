@@ -150,7 +150,95 @@ console.log('Selected Category:', newCategory);
   </script>
   
   <style scoped>
-  /* General Page Layout */
+/* Tablet Screens */
+@media (max-width: 768px) {
+  .search-section {
+    flex-direction: column; /* Stack dropdown, search bar, and button vertically */
+    align-items: stretch;
+  }
+
+  .dropdown-container {
+    margin-right: 0; /* Remove margin when stacking */
+    margin-bottom: 15px; /* Add spacing between stacked elements */
+    width: 100%; /* Full width for dropdown */
+  }
+
+  .styled-dropdown {
+    width: 100%; /* Full width dropdown */
+    padding: 10px; /* Adjust padding for mobile */
+    font-size: 16px; /* Adjust font size for readability */
+  }
+
+  .info-icon {
+    font-size: 12px; /* Adjust icon size */
+    margin-left: 5px; /* Slight margin adjustment */
+  }
+
+  .search-input {
+    width: 100%; /* Full width search bar */
+    margin-bottom: 15px; /* Add spacing below search bar */
+    font-size: 16px; /* Adjust font size for readability */
+    padding: 10px; /* Adjust padding for mobile */
+  }
+
+  .search-button {
+    width: 100%; /* Full width button */
+    padding: 12px; /* Adjust padding */
+    font-size: 18px; /* Adjust font size for readability */
+    margin-top: 10px; /* Add margin to create space between elements */
+  }
+}
+
+/* Smaller Mobile Screens */
+@media (max-width: 480px) {
+  .search-section {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: stretch;
+  }
+
+  .dropdown-container {
+    margin-right: 0;
+    margin-bottom: 10px; /* Smaller margin for more compact design */
+    width: 100%; /* Full width for dropdown */
+  }
+
+  .styled-dropdown { 
+    font-size: 22px; /* Further increase font size */
+    padding: 14px 18px; /* Further increase padding */
+  }
+
+  .info-icon {
+    font-size: 10px; /* Smaller icon size */
+    margin-left: 5px;
+  }
+
+  .search-input {
+    width: 100%; /* Full width search bar */
+    margin-bottom: 10px; /* Smaller margin for compact layout */
+    font-size: 14px; /* Adjust font size */
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+
+  .search-button {
+    width: 100%;
+    padding: 10px; /* Adjust padding */
+    font-size: 16px; /* Adjust font size */
+  }
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-item {
+    width: 100%; /* Full width for small screens */
+    margin-bottom: 15px; /* Adjust spacing between items */
+  }
+
+  .feature-item:last-child {
+    margin-bottom: 0; /* Remove margin from the last item */
+  }
+}
+
   .landing-page {
     text-align: center;
     padding: 60px 20px;
