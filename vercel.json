@@ -1,15 +1,11 @@
 {
   "version": 2,
-  "public": "dist",
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "openai-backend/index.js"
-    },
-    {
-      "src": "/(.*)", 
-      "dest": "/index.html"
     }
+      
   ]
 }
 
