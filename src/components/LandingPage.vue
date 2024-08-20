@@ -24,12 +24,13 @@
           </div>
         </div>
         <input
-          v-model="tickerSymbol"
-          placeholder="Enter Ticker Symbol (e.g., AAPL)"
-          @input="formatTicker"
-          @keyup.enter="searchCompany"
-          class="search-input"
-        />
+        v-model="tickerSymbol"
+        placeholder="Enter Ticker Symbol (e.g., AAPL)"
+        @input="filterInput"
+        @keypress="preventInvalidInput"
+        @keyup.enter="searchCompany"
+        class="search-input"
+      />
         <button @click="searchCompany" class="search-button">Analyze Now</button>
         
       </div>
@@ -116,6 +117,13 @@ console.log('Selected Category:', newCategory);
       formatTicker() {
         this.tickerSymbol = this.tickerSymbol.toUpperCase();
       },
+      preventInvalidInput(event) {
+      // Prevent typing of anything other than uppercase letters (A-Z)
+      const char = String.fromCharCode(event.keyCode);
+      if (!/[A-Z]/.test(char)) {
+        event.preventDefault();
+      }
+    },
       searchCompany() {
         if (this.tickerSymbol) {
           // Pass selected category and ticker as route parameters
