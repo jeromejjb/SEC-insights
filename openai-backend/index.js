@@ -1,19 +1,20 @@
 // require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const axios = require('axios');
-const cors = require('cors');
-
 const app = express();
 const port = process.env.PORT || 3000;
-const cheerio = require('cheerio'); // Importing cheerio
 
-
+// CORS configuration
 app.use(cors({
     origin: [
-        'https://sec-strategy-app.vercel.app', // Initial Vercel frontend URL
-        'https://sec-strategy-lz9cmh2hu-jeromes-projects-f2caa689.vercel.app', // New Vercel deployment URL
-        'https://sec-insights-rr90.onrender.com' // Render backend URL
+        'https://sec-strategy-app.vercel.app', // Primary Vercel domain
+        'https://sec-strategy-lz9cmh2hu-jeromes-projects-f2caa689.vercel.app', // Alternative Vercel domain
+        'https://sec-insights-rr90.onrender.com' // Render backend domain
     ],
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
 
 app.use(express.json());
