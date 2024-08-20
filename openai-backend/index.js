@@ -7,11 +7,12 @@ const port = process.env.PORT || 3000;
 
 // CORS configuration
 app.use(cors({
-    origin: [
-        'https://sec-strategy-app.vercel.app', // Primary Vercel domain
-        'https://sec-strategy-lz9cmh2hu-jeromes-projects-f2caa689.vercel.app', // Alternative Vercel domain
-        'https://sec-insights-rr90.onrender.com' // Render backend domain
-    ],
+    origin: '*',
+    // origin: [
+    //     'https://sec-strategy-app.vercel.app', // Primary Vercel domain
+    //     'https://sec-strategy-lz9cmh2hu-jeromes-projects-f2caa689.vercel.app', // Alternative Vercel domain
+    //     'https://sec-insights-rr90.onrender.com' // Render backend domain
+    // ],
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -40,6 +41,7 @@ app.get('/api/sec-proxy', async (req, res) => {
 
 // Route for generating categorized summary and searching for specific content using OpenAI API
 app.post('/api/analyze-company-strategy', async (req, res) => {
+    console.log('Request received for /api/analyze-company-strategy with data:', req.body);
     try {
       const { filingData, category, searchQuery } = req.body;
   
