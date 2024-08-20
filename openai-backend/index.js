@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 const cheerio = require('cheerio'); // Importing cheerio
 
 
-aapp.use(cors({
+app.use(cors({
     origin: [
         'https://sec-strategy-app.vercel.app', // Your Vercel frontend
         'https://sec-insights-rr90.onrender.com' // Your Render backend
