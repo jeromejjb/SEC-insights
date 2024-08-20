@@ -385,13 +385,6 @@ console.log('Selected Category:', newCategory);
   .footer-content a:hover {
     text-decoration: underline;
   }
-  @media only screen and (max-width: 600px) {
-    .features, .esg-companies .company-row {
-      flex-direction: column;
-    }
-    .search-section {
-      flex-direction: column;
-    }
-  }
+  
   </style>
   
