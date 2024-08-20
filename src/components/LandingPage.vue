@@ -68,7 +68,7 @@
           <p>
             The information provided on this platform is for informational purposes only and does not constitute financial advice. Please consult a professional financial advisor before making any investment decisions.
           </p>
-          <p>&copy; 2024 A Catalyst Labs Production. All rights reserved.</p>
+          <p>&copy; 2024 <a href="https://catalystlabs.io" target="_blank" rel="noopener noreferrer">A Catalyst Labs Production</a>. All rights reserved.</p>
           <router-link to="/privacy-policy">Privacy Policy</router-link>
         </div>
       </footer>
