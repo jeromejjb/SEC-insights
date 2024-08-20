@@ -117,6 +117,10 @@ console.log('Selected Category:', newCategory);
       formatTicker() {
         this.tickerSymbol = this.tickerSymbol.toUpperCase();
       },
+      filterInput() {
+      // Replace any non-letter character and convert to uppercase
+      this.tickerSymbol = this.tickerSymbol.replace(/[^a-zA-Z]/g, '').toUpperCase();
+    },
       preventInvalidInput(event) {
       // Prevent typing of anything other than uppercase letters (A-Z)
       const char = String.fromCharCode(event.keyCode);
