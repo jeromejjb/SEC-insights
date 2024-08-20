@@ -1,24 +1,16 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "openai-backend/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "src/index.html",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/openai-backend/index.js"
+      "dest": "openai-backend/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/src/index.html"
+      "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key"
   }
-
+}
