@@ -61,6 +61,17 @@
         </div>
       </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+          <p>
+            The information provided on this platform is for informational purposes only and does not constitute financial advice. Please consult a professional financial advisor before making any investment decisions.
+          </p>
+          <p>&copy; 2024 A Catalyst Labs Production. All rights reserved.</p>
+          <router-link to="/privacy-policy">Privacy Policy</router-link>
+        </div>
+      </footer>
+      
   </template>
   
   <script>
@@ -336,5 +347,33 @@ console.log('Selected Category:', newCategory);
     font-size: 12px;
     color: #7f8c8d;
   }
+  .site-footer {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 40px;
+  }
+  
+  .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .footer-content p {
+    margin-bottom: 10px;
+  }
+  
+  .footer-content a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .footer-content a:hover {
+    text-decoration: underline;
+  }
+  
   </style>
   

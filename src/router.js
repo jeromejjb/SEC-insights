@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LandingPage from '@/components/LandingPage.vue';
-import CompanySearch from '@/components/CompanySearch.vue'
+import CompanySearch from '@/components/CompanySearch.vue';
+import PrivacyPolicy from '@/components/PrivacyPolicy';
 const routes = [
   {
     path: '/',
@@ -13,6 +14,11 @@ const routes = [
     component: CompanySearch,
     props: true,
   },
+  {
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: PrivacyPolicy
+  }
 ];
 
 const router = createRouter({

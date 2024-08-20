@@ -18,6 +18,8 @@
       </div>
     </div>
   </div>
+  <router-link class="search-button" to="/" style="text-decoration: none;">New Search</router-link>
+
 </template>
 
 <script>
@@ -81,6 +83,7 @@ export default {
     },
   },
 };
+
 </script>
 
 
@@ -191,5 +194,20 @@ export default {
   font-size: 16px;
   color: #666;
   line-height: 1.5;
+}
+.search-button {
+  padding: 12px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #3498db, #8e44ad);
+  color: white;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.search-button:hover {
+  transform: scale(1.05);
 }
 </style>
