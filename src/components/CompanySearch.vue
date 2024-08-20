@@ -100,6 +100,54 @@ export default {
   text-align: left;
 }
 
+/* Mobile-Friendly Adjustments */
+@media (max-width: 768px) {
+  .company-search {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .summary-item h3 {
+    font-size: 20px;
+  }
+
+  .summary-item p {
+    font-size: 14px;
+  }
+
+  .loading-message {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-search {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .summary-item h3 {
+    font-size: 18px;
+  }
+
+  .summary-item p {
+    font-size: 12px;
+  }
+
+  .loading-message {
+    font-size: 14px;
+  }
+}
+
+
 .company-info {
   display: flex;
   align-items: center;
