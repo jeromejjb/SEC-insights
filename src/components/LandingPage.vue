@@ -121,10 +121,9 @@ console.log('Selected Category:', newCategory);
       // Replace any non-letter character and convert to uppercase
       this.tickerSymbol = this.tickerSymbol.replace(/[^a-zA-Z]/g, '').toUpperCase();
     },
-      preventInvalidInput(event) {
-      // Prevent typing of anything other than uppercase letters (A-Z)
+    preventInvalidInput(event) {
       const char = String.fromCharCode(event.keyCode);
-      if (!/[A-Z]/.test(char)) {
+      if (!/[a-zA-Z]/.test(char)) {
         event.preventDefault();
       }
     },
