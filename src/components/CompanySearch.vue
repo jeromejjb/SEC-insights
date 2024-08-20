@@ -95,6 +95,7 @@ export default {
 
 <style scoped>
 .company-search {
+  font-family: 'Roboto', sans-serif; /* Apply the font here */
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
