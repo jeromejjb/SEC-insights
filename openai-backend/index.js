@@ -43,10 +43,25 @@ app.get('/api/sec-proxy', async (req, res) => {
 app.post('/api/analyze-company-strategy', async (req, res) => {
     console.log('Request received for /api/analyze-company-strategy with data:', req.body);
     try {
-      const { filingData, category, searchQuery } = req.body;
-      console.log('Request data:', { filingData, category, searchQuery });
-        
+        const { category, searchQuery } = req.body;
+        const { tickerSymbol } = req.body; 
   
+        const secUrl = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${tickerSymbol}&type=10-K&output=xml`;
+
+        const secResponse = await axios.get(secUrl, {
+            headers: {
+              'User-Agent': 'MyAppName/1.0 (your-email@example.com)' // Replace with your app's name and contact info
+            }
+          });
+
+          const filingData = secResponse.data; // Adjust based on the actual structure of SEC response
+
+          // Validate if filingData is available
+          if (!filingData) {
+            return res.status(400).json({ error: 'No filing data found for the provided ticker symbol.' });
+          }
+      
+
       // Generate a dynamic prompt based on the selected category
       let categoryDescription = '';
   
@@ -78,7 +93,7 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
       const openaiResponse = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
-          model: "gpt-4",
+          model: "gpt-4o",
           messages: [
             { role: "system", content: "You are a financial analyst specialized in extracting insights from SEC filings." },
             { role: "user", content: prompt }
