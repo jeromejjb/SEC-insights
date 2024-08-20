@@ -76,6 +76,7 @@ export default {
       this.error = null;
       try {
         const response = await axios.post('https://sec-insights-rr90.onrender.com/api/analyze-company-strategy', {
+          filingData: actualFilingData,
           category: this.localSelectedCategory,
           searchQuery: 'revenue',
         });
