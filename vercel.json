@@ -6,8 +6,8 @@
       "dest": "openai-backend/index.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "src": "dist/**/*", "use": "@vercel/static"
     }
   ]
 }
+
