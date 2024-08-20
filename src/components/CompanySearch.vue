@@ -61,7 +61,7 @@ export default {
   methods: {
     async fetchCompanyData() {
       try {
-        const response = await axios.get('http://localhost:3000/api/company-logo', {
+        const response = await axios.get('https://sec-insights-rr90.onrender.com/api/company-logo', {
           params: { ticker: this.tickerSymbol },
         });
         this.companyName = response.data.companyName || this.tickerSymbol;
@@ -75,7 +75,7 @@ export default {
       this.loading = true;
       this.error = null;
       try {
-        const response = await axios.post('http://localhost:3000/api/analyze-company-strategy', {
+        const response = await axios.post('https://sec-insights-rr90.onrender.com/api/analyze-company-strategy', {
           category: this.localSelectedCategory,
           searchQuery: 'revenue',
         });

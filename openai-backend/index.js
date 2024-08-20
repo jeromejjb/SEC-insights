@@ -8,7 +8,12 @@ const port = process.env.PORT || 3000;
 const cheerio = require('cheerio'); // Importing cheerio
 
 
-app.use(cors());
+app.use(cors(
+
+    {
+        origin: 'https://sec-strategy-app.vercel.app', // Update this to your Vercel frontend URL
+      }
+));
 app.use(express.json());
 
 // Proxy route for SEC API requests
