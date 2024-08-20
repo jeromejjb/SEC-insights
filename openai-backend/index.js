@@ -10,8 +10,9 @@ const cheerio = require('cheerio'); // Importing cheerio
 
 app.use(cors({
     origin: [
-        'https://sec-strategy-app.vercel.app', // Your Vercel frontend
-        'https://sec-insights-rr90.onrender.com' // Your Render backend
+        'https://sec-strategy-app.vercel.app', // Initial Vercel frontend URL
+        'https://sec-strategy-lz9cmh2hu-jeromes-projects-f2caa689.vercel.app', // New Vercel deployment URL
+        'https://sec-insights-rr90.onrender.com' // Render backend URL
     ],
 }));
 
