@@ -75,8 +75,9 @@ export default {
       this.loading = true;
       this.error = null;
       try {
+        const mockFilingData = "This is some mock SEC filing data for testing.";
         const response = await axios.post('https://sec-insights-rr90.onrender.com/api/analyze-company-strategy', {
-          filingData: actualFilingData,
+          filingData: mockFilingData,
           category: this.localSelectedCategory,
           searchQuery: 'revenue',
         });

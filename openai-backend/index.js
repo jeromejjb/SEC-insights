@@ -45,7 +45,7 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
     try {
       const { filingData, category, searchQuery } = req.body;
       console.log('Request data:', { filingData, category, searchQuery });
-
+        
   
       // Generate a dynamic prompt based on the selected category
       let categoryDescription = '';
