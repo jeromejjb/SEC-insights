@@ -91,37 +91,40 @@
   </template>
   
   <script>
-  export default {
-    data() {
-      return {
-        tickerSymbol: '',
-        selectedCategory: 'Placeholder', // Default category
-        selectedModel: 'Placeholder', // Default model
-        tooltipVisible: false,
-        esgCompanies: [
-          { name: 'Apple', ticker: 'AAPL', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
-          { name: 'Microsoft', ticker: 'MSFT', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
-          { name: 'Nvidia', ticker: 'NVDA', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Nvidia_logo.svg' },
-          { name: 'Tesla', ticker: 'TSLA', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg' },
-          { name: 'Alphabet', ticker: 'GOOGL', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
-          { name: 'Amazon', ticker: 'AMZN', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' },
-          { name: 'Meta Platforms', ticker: 'META', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta_Platforms_Inc._logo.svg' },
-          { name: 'Johnson & Johnson', ticker: 'JNJ', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/0e/Johnson_and_Johnson_logo.svg' },
-          { name: 'Visa', ticker: 'V', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Visa_Inc._logo.svg' },
-          { name: 'Procter & Gamble', ticker: 'PG', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Procter_%26_Gamble_logo.svg' },
-          { name: 'JPMorgan Chase', ticker: 'JPM', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/JPMorgan_Chase_and_Co_logo.svg' },
-          { name: 'Nestle', ticker: 'NSRGY', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Nestle_logo.svg' },
-          { name: 'Walmart', ticker: 'WMT', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Walmart_logo.svg' },
-          { name: 'Pfizer', ticker: 'PFE', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Pfizer_logo.svg' },
-          { name: 'UnitedHealth', ticker: 'UNH', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/34/UnitedHealth_Group_logo.svg' },
-          { name: 'Chevron', ticker: 'CVX', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Chevron_logo.svg' },
-          { name: 'Exxon Mobil', ticker: 'XOM', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/ExxonMobil_logo.svg' },
-          { name: 'Coca-Cola', ticker: 'KO', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Coca-Cola_logo.svg' },
-          { name: 'PepsiCo', ticker: 'PEP', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/12/PepsiCo_logo.svg' },
-          { name: 'Walt Disney', ticker: 'DIS', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Walt_Disney_Studios_Motion_Pictures_Logo.svg' },
-        ],
-      };
-    },
+  // import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      tickerSymbol: '',
+      selectedCategory: 'Placeholder', // Default category
+      selectedModel: 'Placeholder', // Default model
+      tooltipVisible: false,
+      esgCompanies: [
+        // Predefined company data with correct logo URLs
+        { name: 'Apple', ticker: 'AAPL', logo: 'https://logo.clearbit.com/apple.com' },
+        { name: 'Microsoft', ticker: 'MSFT', logo: 'https://logo.clearbit.com/microsoft.com' },
+        { name: 'Nvidia', ticker: 'NVDA', logo: 'https://logo.clearbit.com/nvidia.com' },
+        { name: 'Tesla', ticker: 'TSLA', logo: 'https://logo.clearbit.com/tesla.com' },
+        { name: 'Alphabet', ticker: 'GOOGL', logo: 'https://logo.clearbit.com/abc.xyz' },
+        { name: 'Amazon', ticker: 'AMZN', logo: 'https://logo.clearbit.com/amazon.com' },
+        { name: 'Meta Platforms', ticker: 'META', logo: 'https://logo.clearbit.com/about.facebook.com' },
+        { name: 'Johnson & Johnson', ticker: 'JNJ', logo: 'https://logo.clearbit.com/jnj.com' },
+        { name: 'Visa', ticker: 'V', logo: 'https://logo.clearbit.com/visa.com' },
+        { name: 'Procter & Gamble', ticker: 'PG', logo: 'https://logo.clearbit.com/pg.com' },
+        { name: 'JPMorgan Chase', ticker: 'JPM', logo: 'https://logo.clearbit.com/jpmorganchase.com' },
+        { name: 'Nestle', ticker: 'NSRGY', logo: 'https://logo.clearbit.com/nestle.com' },
+        { name: 'Walmart', ticker: 'WMT', logo: 'https://logo.clearbit.com/walmart.com' },
+        { name: 'Pfizer', ticker: 'PFE', logo: 'https://logo.clearbit.com/pfizer.com' },
+        { name: 'UnitedHealth', ticker: 'UNH', logo: 'https://logo.clearbit.com/unitedhealthgroup.com' },
+        { name: 'Chevron', ticker: 'CVX', logo: 'https://logo.clearbit.com/chevron.com' },
+        { name: 'Exxon Mobil', ticker: 'XOM', logo: 'https://logo.clearbit.com/exxonmobil.com' },
+        { name: 'Coca-Cola', ticker: 'KO', logo: 'https://logo.clearbit.com/coca-cola.com' },
+        { name: 'PepsiCo', ticker: 'PEP', logo: 'https://logo.clearbit.com/pepsico.com' },
+        { name: 'Walt Disney', ticker: 'DIS', logo: 'https://logo.clearbit.com/thewaltdisneycompany.com' }
+      ],
+    };
+  },
     watch: {
 selectedCategory(newCategory) {
 ('Selected Category:', newCategory);
@@ -145,7 +148,8 @@ selectedCategory(newCategory) {
     },
       searchCompany() {
         if (this.tickerSymbol) {
-          // Pass selected category and ticker as route parameters
+
+          
           this.$router.push({
             name: 'CompanySearch',
             params: {
