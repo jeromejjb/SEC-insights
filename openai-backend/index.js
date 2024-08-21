@@ -98,7 +98,7 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
             { role: "system", content: "You are a financial analyst specialized in extracting insights from SEC filings." },
             { role: "user", content: prompt }
           ],
-          max_tokens: 5000, // Increased token limit for more detailed responses
+          max_tokens: 2000, // Increased token limit for more detailed responses
           temperature: 0.5,
           top_p: 0.9,
         },
