@@ -39,8 +39,8 @@
         <select v-model="selectedModel" class="styled-dropdown">
           <option value="Placeholder">Select a LLM</option>
           <option value="gpt-4">OpenAI GPT-4</option>
-          <option value="claude-v1">Claude v1</option>
-          <option value="cohere-command">Cohere Command</option>
+          <option value="claude-v1" disabled>Claude v1 (Coming Soon)</option>
+          <option value="cohere-command" disabled>Cohere Command (Coming Soon)</option>
         </select>
         <div class="dropdown-chevron">▼</div>
       </div>
