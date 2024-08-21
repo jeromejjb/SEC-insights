@@ -43,8 +43,8 @@ app.get('/api/sec-proxy', async (req, res) => {
 app.post('/api/analyze-company-strategy', async (req, res) => {
     console.log('Request received for /api/analyze-company-strategy with data:', req.body);
     try {
-        const { category, searchQuery } = req.body;
-        const { tickerSymbol } = req.body; 
+    const { model, category, searchQuery, tickerSymbol } = req.body;
+    
   
         const secUrl = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${tickerSymbol}&type=10-K&output=xml`;
 

@@ -151,6 +151,7 @@ selectedCategory(newCategory) {
             params: {
               ticker: this.tickerSymbol,
               category: this.selectedCategory,
+              model: this.selectedModel,
             },
           });
         }
