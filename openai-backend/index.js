@@ -149,12 +149,30 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
 // Function to get the company domain from ticker symbol (simplified for this example)
 async function getCompanyDomainFromTicker(ticker) {
   const mockData = {
-    AAPL: 'apple.com',
-    MSFT: 'microsoft.com',
-    QQQ: 'invesco.com' // Example for a mutual fund or ETF
+    AAPL: 'apple.com',               // Apple
+    MSFT: 'microsoft.com',           // Microsoft
+    NVDA: 'nvidia.com',              // Nvidia
+    TSLA: 'tesla.com',               // Tesla
+    GOOGL: 'abc.xyz',                // Alphabet (Google)
+    AMZN: 'amazon.com',              // Amazon
+    META: 'about.facebook.com',      // Meta Platforms
+    JNJ: 'jnj.com',                  // Johnson & Johnson
+    V: 'visa.com',                   // Visa
+    PG: 'pg.com',                    // Procter & Gamble
+    JPM: 'jpmorganchase.com',        // JPMorgan Chase
+    NSRGY: 'nestle.com',             // Nestle
+    WMT: 'walmart.com',              // Walmart
+    PFE: 'pfizer.com',               // Pfizer
+    UNH: 'unitedhealthgroup.com',    // UnitedHealth
+    CVX: 'chevron.com',              // Chevron
+    XOM: 'exxonmobil.com',           // Exxon Mobil
+    KO: 'coca-cola.com',             // Coca-Cola
+    PEP: 'pepsico.com',              // PepsiCo
+    DIS: 'thewaltdisneycompany.com'  // Walt Disney
   };
   return mockData[ticker] || null;
 }
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
