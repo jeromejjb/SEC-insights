@@ -17,13 +17,19 @@
         <p>{{ item.content }}</p>
       </div>
     </div>
+    <div v-if="chartsData.length" class="charts">
+      <h3>Key Performance Indicators</h3>
+      <div v-for="chart in chartsData" :key="chart.id" class="chart-container">
+        <canvas :id="chart.id"></canvas>
+      </div>
+    </div>
   </div>
   <router-link class="search-button" to="/" style="text-decoration: none;">New Search</router-link>
-
 </template>
 
 <script>
 import axios from 'axios';
+import Chart from 'chart.js/auto';
 
 export default {
   data() {
@@ -35,6 +41,7 @@ export default {
       summary: '',
       loading: false,
       error: null,
+      chartsData: [], // Store chart data here
     };
   },
   computed: {
@@ -47,7 +54,7 @@ export default {
         : [];
     },
   },
-  created() {
+  mounted() {
     this.fetchCompanyData();
     this.fetchCompanySearch();
   },
@@ -74,6 +81,9 @@ export default {
           searchQuery: 'revenue',
         });
         this.summary = response.data.summary;
+        if (response.data.kpiData) {
+          this.generateCharts(response.data.kpiData);
+        }
       } catch (error) {
         this.error = 'Error fetching the company strategy.';
         console.error(error);
@@ -81,12 +91,39 @@ export default {
         this.loading = false;
       }
     },
+    generateCharts(kpiData) {
+      // Generate charts using Chart.js
+      this.chartsData = kpiData.map((kpi, index) => {
+        const chartId = `chart-${index}`;
+        this.renderChart(chartId, kpi);
+        return { id: chartId, data: kpi };
+      });
+    },
+    renderChart(id, data) {
+      const ctx = document.getElementById(id).getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [{
+            label: data.label,
+            data: data.values,
+            backgroundColor: '#3498db',
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      });
+    }
   },
 };
-
 </script>
-
-
 
 <style scoped>
 /* Mobile-Friendly Adjustments */
@@ -137,7 +174,7 @@ export default {
 }
 
 .company-search {
-  font-family: 'Roboto', sans-serif; /* Apply the font here */
+  font-family: 'Roboto', sans-serif;
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
@@ -242,6 +279,7 @@ export default {
   color: #666;
   line-height: 1.5;
 }
+
 .search-button {
   padding: 12px 30px;
   font-size: 18px;
@@ -256,5 +294,13 @@ export default {
 
 .search-button:hover {
   transform: scale(1.05);
+}
+
+.charts {
+  margin-top: 30px;
+}
+
+.chart-container {
+  margin-bottom: 20px;
 }
 </style>
