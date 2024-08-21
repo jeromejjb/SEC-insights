@@ -1,29 +1,30 @@
 <template>
-    <div class="landing-page">
-      <header>
-        <h1>Enhance Your Commercial Awareness</h1>
-        <p>AI-Driven Insights from SEC Filings at Your Fingertips</p>
-      </header>
-  
-      <div class="search-section">
-        <div class="dropdown-container">
-          <div class="dropdown-wrapper">
-            <select v-model="selectedCategory" class="styled-dropdown">
-              <option value="ESG">ESG</option>
-              <option value="Sustainability">Sustainability</option>
-              <option value="Future Sales Strategies">Future Sales Strategies</option>
-              <option value="Future Products">Future Products</option>
-            </select>
-            <div class="dropdown-chevron">▼</div>
-            <div class="info-icon" @mouseenter="showTooltip" @mouseleave="hideTooltip">
-              <span>ℹ️</span>
-              <div v-if="tooltipVisible" class="tooltip">
-                <p>Select a category to tailor the analysis to specific areas like ESG, Sustainability, and more.</p>
-              </div>
+  <div class="landing-page">
+    <header>
+      <h1>Enhance Your Commercial Awareness</h1>
+      <p>AI-Driven Insights from SEC Filings at Your Fingertips</p>
+    </header>
+
+    <div class="search-section">
+      <div class="dropdown-container">
+        <div class="dropdown-wrapper">
+          <select v-model="selectedCategory" class="styled-dropdown">
+            <option value="Placeholder">Select a Category</option>
+            <option value="ESG">ESG</option>
+            <option value="Sustainability">Sustainability</option>
+            <option value="Future Sales Strategies">Future Sales Strategies</option>
+            <option value="Future Products">Future Products</option>
+          </select>
+          <div class="dropdown-chevron">▼</div>
+          <div class="info-icon" @mouseenter="showTooltip" @mouseleave="hideTooltip">
+            <span>ℹ️</span>
+            <div v-if="tooltipVisible" class="tooltip">
+              <p>Select a category to tailor the analysis to specific areas like ESG, Sustainability, and more.</p>
             </div>
           </div>
         </div>
-        <input
+      </div>
+      <input
         v-model="tickerSymbol"
         placeholder="Enter Ticker Symbol (e.g., AAPL)"
         @input="filterInput"
@@ -31,9 +32,23 @@
         @keyup.enter="searchCompany"
         class="search-input"
       />
-        <button @click="searchCompany" class="search-button">Analyze Now</button>
-        
+      
+     <!-- Model Selection Dropdown -->
+     <div class="dropdown-container model-dropdown">
+      <div class="dropdown-wrapper">
+        <select v-model="selectedModel" class="styled-dropdown">
+          <option value="Placeholder">Select a LLM</option>
+          <option value="gpt-4">OpenAI GPT-4</option>
+          <option value="claude-v1">Claude v1</option>
+          <option value="cohere-command">Cohere Command</option>
+        </select>
+        <div class="dropdown-chevron">▼</div>
       </div>
+    </div>
+      
+      <button @click="searchCompany" class="search-button">Analyze Now</button>
+    </div>
+
   
       <div class="features">
         <div class="feature-item">
@@ -80,7 +95,8 @@
     data() {
       return {
         tickerSymbol: '',
-        selectedCategory: 'ESG', // Default category
+        selectedCategory: 'Placeholder', // Default category
+        selectedModel: 'Placeholder', // Default model
         tooltipVisible: false,
         esgCompanies: [
           { name: 'Apple', ticker: 'AAPL', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
@@ -108,7 +124,7 @@
     },
     watch: {
 selectedCategory(newCategory) {
-console.log('Selected Category:', newCategory);
+('Selected Category:', newCategory);
 // You can perform additional actions here when the category changes.
 }
 },
@@ -309,6 +325,31 @@ console.log('Selected Category:', newCategory);
     font-size: 14px;
     color: #3498db;
   }
+  .model-dropdown .styled-dropdown {
+    border: 2px solid #4caf50; /* Cool border */
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    background-color: #fff;
+    appearance: none;
+    position: relative;
+    padding-right: 30px; /* Space for chevron */
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  
+  .model-dropdown .styled-dropdown:focus {
+    border-color: #8e44ad;
+  }
+  
+  .model-dropdown .dropdown-chevron {
+    position: absolute;
+    right: 10px;
+    pointer-events: none;
+    font-size: 14px;
+    color: #4caf50;
+  }
+  
   
   .info-icon {
     cursor: pointer;

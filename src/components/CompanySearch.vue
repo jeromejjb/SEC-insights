@@ -1,35 +1,62 @@
 <template>
   <div class="company-search">
-    <h2>Company Strategy for {{ tickerSymbol }} </h2>
+    <h2>Company Strategy for {{ tickerSymbol }}</h2>
+
+    <!-- Loading Animation -->
     <div v-if="loading" class="loading-container">
       <div class="loading-bar-container">
         <div class="loading-bar"></div>
       </div>
       <p class="loading-message">Analyzing the latest SEC filings... Your insights are on the way!</p>
     </div>
+
     <div v-if="error" class="error">{{ error }}</div>
+
+    <!-- Company Logo -->
     <div v-if="logoUrl" class="company-logo">
       <img :src="logoUrl" alt="Company Logo" />
     </div>
-    <div v-if="summary" class="summary">
+
+    <!-- Word Cloud -->
+    <div v-if="wordCloudData.length" class="word-cloud">
+      <h3>Key Themes</h3>
+      <div id="word-cloud"></div>
+    </div>
+
+    <!-- Summarized Information -->
+    <div v-if="summaryItems.length" class="summary">
+      <h3>Summary Information</h3>
       <div v-for="(item, index) in summaryItems" :key="index" class="summary-item">
-        <h3>{{ item.title }}</h3>
+        <h4>{{ item.title }}</h4>
         <p>{{ item.content }}</p>
       </div>
     </div>
+
+    <!-- Key Performance Indicators (Charts) -->
     <div v-if="chartsData.length" class="charts">
       <h3>Key Performance Indicators</h3>
       <div v-for="chart in chartsData" :key="chart.id" class="chart-container">
         <canvas :id="chart.id"></canvas>
       </div>
     </div>
+
+    <!-- Quotes from Filings -->
+    <div v-if="quotes.length" class="quotes">
+      <h3>Direct Quotes from Filings</h3>
+      <blockquote v-for="(quote, index) in quotes" :key="index" class="quote-item">
+        "{{ quote }}"
+      </blockquote>
+    </div>
+
+    <!-- Navigation Button -->
+    <router-link class="search-button" to="/" style="text-decoration: none;">New Search</router-link>
   </div>
-  <router-link class="search-button" to="/" style="text-decoration: none;">New Search</router-link>
 </template>
 
 <script>
 import axios from 'axios';
 import Chart from 'chart.js/auto';
+import WordCloud from 'wordcloud';
 
 export default {
   data() {
@@ -41,7 +68,9 @@ export default {
       summary: '',
       loading: false,
       error: null,
-      chartsData: [], // Store chart data here
+      chartsData: [],
+      wordCloudData: [],
+      quotes: [],
     };
   },
   computed: {
@@ -50,7 +79,7 @@ export default {
         ? this.summary.split('\n').filter(item => item.includes(':')).map(item => {
             const [title, content] = item.split(': ');
             return { title: title?.trim() || 'Untitled', content: content?.trim() || '' };
-          })
+          }).filter(item => item.content !== '')  // Remove empty content
         : [];
     },
   },
@@ -80,10 +109,14 @@ export default {
           category: this.localSelectedCategory,
           searchQuery: 'revenue',
         });
-        this.summary = response.data.summary;
+        this.summary = response.data.summary || '';
         if (response.data.kpiData) {
           this.generateCharts(response.data.kpiData);
         }
+        if (response.data.wordCloud) {
+          this.generateWordCloud(response.data.wordCloud);
+        }
+        this.quotes = response.data.quotes || [];
       } catch (error) {
         this.error = 'Error fetching the company strategy.';
         console.error(error);
@@ -92,7 +125,6 @@ export default {
       }
     },
     generateCharts(kpiData) {
-      // Generate charts using Chart.js
       this.chartsData = kpiData.map((kpi, index) => {
         const chartId = `chart-${index}`;
         this.renderChart(chartId, kpi);
@@ -120,59 +152,27 @@ export default {
           }
         },
       });
+    },
+    generateWordCloud(wordData) {
+      WordCloud(document.getElementById('word-cloud'), {
+        list: wordData,
+        gridSize: Math.round(16 * window.innerWidth / 1024),
+        weightFactor: function (size) {
+          return Math.pow(size, 2.3) * window.innerWidth / 1024;
+        },
+        fontFamily: 'Roboto, sans-serif',
+        color: '#3498db',
+        backgroundColor: '#ffffff',
+        rotateRatio: 0.5,
+        rotationSteps: 2,
+        shape: 'circle',
+      });
     }
   },
 };
 </script>
 
 <style scoped>
-/* Mobile-Friendly Adjustments */
-@media (max-width: 768px) {
-  .company-search {
-    padding: 15px;
-    font-size: 14px;
-  }
-
-  h2 {
-    font-size: 24px;
-  }
-
-  .summary-item h3 {
-    font-size: 20px;
-  }
-
-  .summary-item p {
-    font-size: 14px;
-  }
-
-  .loading-message {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .company-search {
-    padding: 10px;
-    font-size: 12px;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
-
-  .summary-item h3 {
-    font-size: 18px;
-  }
-
-  .summary-item p {
-    font-size: 12px;
-  }
-
-  .loading-message {
-    font-size: 14px;
-  }
-}
-
 .company-search {
   font-family: 'Roboto', sans-serif;
   padding: 20px;
@@ -184,26 +184,10 @@ export default {
   text-align: left;
 }
 
-.company-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .company-logo img {
   max-width: 150px;
-  max-height: 150px;
-  object-fit: contain;
-  margin-right: 20px;
-}
-
-.company-details h3 {
-  font-size: 24px;
-  margin-bottom: 5px;
-}
-
-.company-details p {
-  font-size: 16px;
+  margin: 20px auto;
+  display: block;
 }
 
 .loading-container {
@@ -241,43 +225,22 @@ export default {
   }
 }
 
-.error {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 20px;
-  color: #ff6b6b;
-}
-
-.summary {
+.summary, .charts, .quotes, .word-cloud {
   margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
-.summary-item {
+.summary-item, .quote-item {
   background: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 20px;
 }
 
-.summary-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.summary-item h3 {
-  font-size: 24px;
+.summary-item h4, .quote-item {
+  font-size: 18px;
   color: #333;
   margin-bottom: 10px;
-}
-
-.summary-item p {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.5;
 }
 
 .search-button {
@@ -290,17 +253,50 @@ export default {
   color: white;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
+  display: block;
+  margin: 30px auto 0;
+  text-align: center;
 }
 
 .search-button:hover {
   transform: scale(1.05);
 }
 
-.charts {
-  margin-top: 30px;
-}
-
 .chart-container {
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .company-search {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .summary-item h4, .quote-item {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-search {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .summary-item h4, .quote-item {
+    font-size: 14px;
+  }
+
+  .search-button {
+    width: 100%;
+  }
 }
 </style>

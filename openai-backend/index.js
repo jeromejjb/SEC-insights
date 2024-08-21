@@ -90,32 +90,66 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
         Filing Data: ${filingData}
       `;
   
-      const openaiResponse = await axios.post(
+      let response;
+    if (model === 'gpt-4') {
+      response = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
-          model: "gpt-4o",
+          model: "gpt-4",
           messages: [
             { role: "system", content: "You are a financial analyst specialized in extracting insights from SEC filings." },
             { role: "user", content: prompt }
           ],
-          max_tokens: 2000, // Increased token limit for more detailed responses
+          max_tokens: 2000,
           temperature: 0.5,
-          top_p: 0.9,
         },
         {
           headers: {
             'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         }
       );
-  
-      res.json({ summary: openaiResponse.data.choices[0].message.content.trim() });
-    } catch (error) {
-      console.error('Error generating summary:', error.response ? error.response.data : error.message);
-      res.status(500).send('Error generating summary');
+    } else if (model === 'claude-v1') {
+      response = await axios.post(
+        'https://api.anthropic.com/v1/complete',
+        {
+          prompt,
+          model: 'claude-v1',
+          max_tokens: 2000,
+          temperature: 0.5,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${process.env.ANTHROPIC_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } else if (model === 'cohere-command') {
+      response = await axios.post(
+        'https://api.cohere.ai/v1/generate',
+        {
+          prompt,
+          model: 'command',
+          max_tokens: 2000,
+          temperature: 0.5,
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${process.env.COHERE_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
     }
-  });
+
+    res.json({ summary: response.data.choices[0].message.content.trim() });
+  } catch (error) {
+    console.error('Error generating summary:', error.response ? error.response.data : error.message);
+    res.status(500).send('Error generating summary');
+  }
+});
   
   
   app.get('/api/company-logo', async (req, res) => {
