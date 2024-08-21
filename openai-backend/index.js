@@ -71,9 +71,9 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
     }
 
     const prompt = `
-      Based on the following SEC filing data, provide a detailed analysis of the company's future strategies and directions related to "${category}".
+      Based on the following SEC filing data, provide a detailed and creative analysis of the company's future strategies and directions related to "${category}".
       Focus on ${categoryDescription}.
-      Include relevant financial metrics, projections, and key performance indicators (KPIs). Search for specific quotes or sayings related to "${searchQuery}", and identify any significant numbers, actions, or strategic initiatives mentioned in the filing.
+      Include relevant financial metrics, projections, and key performance indicators (KPIs). Search for specific quotes or sayings related to "${searchQuery}", and identify any significant numbers, actions, or strategic initiatives mentioned in the filing. Provide deep insights and consider broader industry implications.
 
       Filing Data: ${filingData}
     `;
@@ -85,11 +85,11 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
         {
           model: "gpt-4",
           messages: [
-            { role: "system", content: "You are a financial analyst specialized in extracting insights from SEC filings." },
+            { role: "system", content: "You are a financial analyst specialized in extracting insights from SEC filings. Provide deep and creative analysis." },
             { role: "user", content: prompt }
           ],
           max_tokens: 2000,
-          temperature: 0.5,
+          temperature: 0.7, // Adjusted for more creative responses
         },
         {
           headers: {
@@ -102,10 +102,10 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
       response = await axios.post(
         'https://api.anthropic.com/v1/complete',
         {
-          prompt,
+          prompt: `Human: ${prompt} \nAssistant:`,
           model: 'claude-v1',
-          max_tokens: 2000,
-          temperature: 0.5,
+          max_tokens_to_sample: 2000,
+          temperature: 0.7, // Adjusted for creativity
         },
         {
           headers: {
@@ -121,7 +121,7 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
           prompt,
           model: 'command',
           max_tokens: 2000,
-          temperature: 0.5,
+          temperature: 0.7, // Adjusted for creative output
         },
         {
           headers: {
@@ -140,6 +140,10 @@ app.post('/api/analyze-company-strategy', async (req, res) => {
       summary = response.data.completion.trim();
     } else if (model === 'cohere-command') {
       summary = response.data.generations[0].text.trim();
+    }
+
+    if (!summary) {
+      return res.status(500).json({ error: 'Received an empty summary from the LLM.' });
     }
 
     res.json({ summary });
