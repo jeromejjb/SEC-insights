@@ -51,6 +51,8 @@
     <!-- Navigation Button -->
     <router-link class="search-button" to="/" style="text-decoration: none;">New Search</router-link>
   </div>
+
+ 
 </template>
 
 <script>

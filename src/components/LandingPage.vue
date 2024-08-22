@@ -79,14 +79,19 @@
     </div>
 
     <footer class="site-footer">
-        <div class="footer-content">
-          <p>
-            The information provided on this platform is for informational purposes only and does not constitute financial advice. Please consult a professional financial advisor before making any investment decisions.
-          </p>
-          <p>&copy; 2024 <a href="https://catalystlabs.io" target="_blank" rel="noopener noreferrer">A Catalyst Labs Production</a>. All rights reserved.</p>
+      <div class="footer-content">
+        <div class="footer-links">
           <router-link to="/privacy-policy">Privacy Policy</router-link>
+          <router-link to="/careers">Join Our Team</router-link>
+          <router-link to="/roadmap">Product Roadmap</router-link>
         </div>
-      </footer>
+        <div class="footer-info">
+          <p>The information provided on this platform is for informational purposes only and does not constitute financial advice. Please consult a professional financial advisor before making any investment decisions.</p>
+          <p>&copy; 2024 <a href="https://catalystlabs.io" target="_blank" rel="noopener noreferrer">Vereon - A Catalyst Labs Production</a>. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    
       
   </template>
   
@@ -493,31 +498,53 @@ selectedCategory(newCategory) {
     color: #7f8c8d;
   }
   .site-footer {
-    background-color: #f9f9f9;
-    padding: 20px;
+    background-color: #4d6985; 
+    color: #ffffff; 
+    padding: 30px 20px;
     text-align: center;
-    border-top: 1px solid #e0e0e0;
+    border-top: 3px solid #4d6985; 
     margin-top: 40px;
   }
   
   .footer-content {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
-    font-size: 14px;
-    color: #666;
   }
   
-  .footer-content p {
-    margin-bottom: 10px;
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    margin-bottom: 20px;
   }
   
-  .footer-content a {
-    color: #007BFF;
+  .footer-links a {
+    color: #1d292b; 
     text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
   }
   
-  .footer-content a:hover {
+  .footer-links a:hover {
+    color: #e67e22; 
+  }
+  
+  .footer-info {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .footer-info p {
+    margin: 10px 0;
+  }
+  
+  .footer-info a {
+    color: #ecf0f1;
     text-decoration: underline;
+  }
+  
+  .footer-info a:hover {
+    color: #f39c12;
   }
   
   </style>

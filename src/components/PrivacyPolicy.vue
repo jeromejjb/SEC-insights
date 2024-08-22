@@ -1,8 +1,7 @@
 <template>
-
-    <router-link to="/">Home</router-link>
-
     <div class="privacy-policy">
+      <router-link class="search-button" to="/" style="text-decoration: none;">Home</router-link>
+
       <h1>Privacy Policy</h1>
       <p><strong>Effective Date:</strong> August 19, 2024</p>
       <p>Welcome to Catalyst Labs. We respect your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and protect your data when you interact with our services.</p>
@@ -36,6 +35,21 @@
       <p><strong>Catalyst Labs</strong></p>
       <p>Email: <a href="mailto:jeromejb@uwalumni.com">jeromejb@uwalumni.com</a></p>
     </div>
+
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <router-link to="/privacy-policy">Privacy Policy</router-link>
+          <router-link to="/careers">Join Our Team</router-link>
+          <router-link to="/roadmap">Product Roadmap</router-link>
+        </div>
+        <div class="footer-info">
+          <p>The information provided on this platform is for informational purposes only and does not constitute financial advice. Please consult a professional financial advisor before making any investment decisions.</p>
+          <p>&copy; 2024 <a href="https://catalystlabs.io" target="_blank" rel="noopener noreferrer">Vereon - A Catalyst Labs Production</a>. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
   </template>
   
   <script>
@@ -45,6 +59,21 @@
   </script>
   
   <style scoped>
+  .search-button {
+    padding: 12px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background: black;
+    color: white;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .search-button:hover {
+    transform: scale(1.05);
+  }
   .privacy-policy {
     max-width: 800px;
     margin: 0 auto;
@@ -69,6 +98,55 @@
   .privacy-policy a {
     color: #007bff;
     text-decoration: none;
+  }
+  .site-footer {
+    background-color: #4d6985; 
+    color: #ffffff; 
+    padding: 30px 20px;
+    text-align: center;
+    border-top: 3px solid #4d6985; 
+    margin-top: 40px;
+  }
+  
+  .footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    margin-bottom: 20px;
+  }
+  
+  .footer-links a {
+    color: #1d292b; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .footer-links a:hover {
+    color: #e67e22; 
+  }
+  
+  .footer-info {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .footer-info p {
+    margin: 10px 0;
+  }
+  
+  .footer-info a {
+    color: #ecf0f1;
+    text-decoration: underline;
+  }
+  
+  .footer-info a:hover {
+    color: #f39c12;
   }
   </style>
   
