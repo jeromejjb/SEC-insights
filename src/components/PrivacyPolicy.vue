@@ -32,8 +32,6 @@
   
       <h2>9. Contact Us</h2>
       <p>If you have any questions about this Privacy Policy, please contact us at:</p>
-      <p><strong>Catalyst Labs</strong></p>
-      <p>Email: <a href="mailto:jeromejb@uwalumni.com">jeromejb@uwalumni.com</a></p>
     </div>
 
 
