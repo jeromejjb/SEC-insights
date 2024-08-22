@@ -20,22 +20,22 @@
           <div class="job-card">
             <h3>Software Engineer Intern</h3>
             <p>Collaborate with our engineering team to develop scalable, AI-driven solutions that push the boundaries of technology.</p>
-            <a href="https://docs.google.com/forms/d/1jy8-kiMT_2McC_I6CaYPp51DKxK4wPy5azUNEBPkrv8/prefill" target="_blank" class="apply-button">Apply Now</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSend1UeYG3lw78pnlWUTq6Bh3LY4jB12H1-vxunQqi1Pn_uKA/viewform" target="_blank" class="apply-button">Apply Now</a>
           </div>
           <div class="job-card">
             <h3>UX/UI Design Intern</h3>
             <p>Create engaging and user-centric designs that make complex data accessible and intuitive for our users.</p>
-            <a href="https://docs.google.com/forms/d/1jy8-kiMT_2McC_I6CaYPp51DKxK4wPy5azUNEBPkrv8/prefill" target="_blank" class="apply-button">Apply Now</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSend1UeYG3lw78pnlWUTq6Bh3LY4jB12H1-vxunQqi1Pn_uKA/viewform" target="_blank" class="apply-button">Apply Now</a>
           </div>
           <div class="job-card">
             <h3>Data Scientist Intern</h3>
             <p>Leverage data science to generate actionable insights and contribute to strategies that drive impactful decisions.</p>
-            <a href="https://docs.google.com/forms/d/1jy8-kiMT_2McC_I6CaYPp51DKxK4wPy5azUNEBPkrv8/prefill" target="_blank" class="apply-button">Apply Now</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSend1UeYG3lw78pnlWUTq6Bh3LY4jB12H1-vxunQqi1Pn_uKA/viewform" target="_blank" class="apply-button">Apply Now</a>
           </div>
           <div class="job-card">
             <h3>Relationship Manager Intern</h3>
             <p>Build and nurture key relationships that align with our growth strategies and client success initiatives.</p>
-            <a href="https://docs.google.com/forms/d/1jy8-kiMT_2McC_I6CaYPp51DKxK4wPy5azUNEBPkrv8/prefill" target="_blank" class="apply-button">Apply Now</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSend1UeYG3lw78pnlWUTq6Bh3LY4jB12H1-vxunQqi1Pn_uKA/viewform" target="_blank" class="apply-button">Apply Now</a>
           </div>
         </div>
       </section>
