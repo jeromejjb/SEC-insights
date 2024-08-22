@@ -1,6 +1,7 @@
 <template>
   <div class="landing-page">
     <header>
+      <img src="@/assets/v.png" alt="Logo" class="logo" />
       <h1>Enhance Your Commercial Awareness</h1>
       <p>AI-Driven Insights from SEC Filings at Your Fingertips</p>
     </header>
@@ -272,7 +273,10 @@ selectedCategory(newCategory) {
     border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   }
-  
+  .logo {
+    width: 100px; /* Adjust the size as needed */
+    margin-bottom: 20px;
+  }
   /* Header Section */
   header {
     margin-bottom: 40px;
