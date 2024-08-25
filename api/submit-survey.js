@@ -1,13 +1,20 @@
 // api/submit-survey.js
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const surveyResponses = req.body;
 
     try {
-      // Store survey response in Vercel KV with a unique key
-      await kv.set(`survey:${Date.now()}`, surveyResponses);
+      // Initialize Redis client using Upstash Redis URL
+      const redis = new Redis({
+        url: process.env.UPSTASH_REDIS_URL,
+        token: process.env.UPSTASH_REDIS_TOKEN,
+      });
+
+      // Store survey response in Redis
+      const responseId = `survey:${Date.now()}`;
+      await redis.set(responseId, JSON.stringify(surveyResponses));
 
       // Respond with a success message
       res.status(200).json({ message: 'Survey data saved successfully!' });
