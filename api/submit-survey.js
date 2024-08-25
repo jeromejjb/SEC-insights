@@ -1,4 +1,3 @@
-// api/submit-survey.js
 import { Redis } from '@upstash/redis';
 
 export default async function handler(req, res) {
@@ -6,10 +5,10 @@ export default async function handler(req, res) {
     const surveyResponses = req.body;
 
     try {
-      // Initialize Redis client using Upstash Redis URL
+      // Initialize Redis client using Upstash Redis REST API URL and token
       const redis = new Redis({
-        url: process.env.UPSTASH_REDIS_URL,
-        token: process.env.UPSTASH_REDIS_TOKEN,
+        url: process.env.KV_REST_API_URL,
+        token: process.env.KV_REST_API_TOKEN,
       });
 
       // Store survey response in Redis
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
       // Respond with a success message
       res.status(200).json({ message: 'Survey data saved successfully!' });
     } catch (error) {
-      console.error('Error saving survey data:', error);
+      console.error('Error saving survey data:', error.message, error.stack);
       res.status(500).json({ message: 'Failed to save survey data' });
     }
   } else {
