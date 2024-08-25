@@ -104,23 +104,25 @@ export default {
       this.currentQuestion -= 1;
     },
     submitSurvey() {
-      fetch('/api/submit-survey', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.surveyResponses),
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Success:', data);
-          this.surveySubmitted = true;
-          this.isMinimized = true;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    },
+    fetch('/api/submit-survey', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.surveyResponses),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      // Display thank you message and minimize the survey
+      alert('Thank you for completing the survey!');
+      this.isMinimized = true;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('There was an error submitting the survey. Please try again.');
+    });
+  },
     toggleMinimize() {
       this.isMinimized = !this.isMinimized;
     },
