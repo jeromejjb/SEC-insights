@@ -4,94 +4,33 @@
       <div v-if="!isMinimized" class="survey-card">
         <section class="survey-content">
           <transition name="slide-fade" mode="out-in">
-            <div v-if="currentQuestion === 1" key="q1">
-              <p>What generation are you from?</p>
+            <div v-if="currentQuestion <= 5" :key="'q' + currentQuestion">
+              <p v-if="currentQuestion === 1">What generation are you from?</p>
+              <p v-if="currentQuestion === 2">How important is social impact to you when shopping?</p>
+              <p v-if="currentQuestion === 3">Would you change your consumer behavior based on a business that does social impact initiatives?</p>
+              <p v-if="currentQuestion === 4">How likely are you to pay more for a product from a company that supports social impact initiatives?</p>
+              <p v-if="currentQuestion === 5">How often do you research a company’s social impact practices before making a purchase?</p>
+              
               <div class="field">
                 <div class="control">
-                  <div v-for="(option, index) in generationOptions" :key="index" class="radio">
+                  <div v-for="(option, index) in getOptions()" :key="index" class="radio">
                     <label class="radio">
-                      <input type="radio" v-model="surveyResponses.generation" :value="option.value" />
+                      <input type="radio" v-model="currentResponse" :value="option.value" />
                       {{ option.label }}
                     </label>
                   </div>
                 </div>
               </div>
-              <button @click="nextQuestion" :disabled="!surveyResponses.generation" class="button is-primary is-fullwidth">Next</button>
-            </div>
-          </transition>
-          
-          <transition name="slide-fade" mode="out-in">
-            <div v-if="currentQuestion === 2" key="q2">
-              <p>How important is social impact to you when shopping?</p>
-              <div class="field">
-                <div class="control">
-                  <div v-for="(option, index) in socialImpactOptions" :key="index" class="radio">
-                    <label class="radio">
-                      <input type="radio" v-model="surveyResponses.socialImpact" :value="option.value" />
-                      {{ option.label }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button @click="previousQuestion" class="button is-light">Back</button>
-              <button @click="nextQuestion" :disabled="!surveyResponses.socialImpact" class="button is-primary is-fullwidth">Next</button>
+              
+              <button v-if="currentQuestion > 1" @click="previousQuestion" class="button is-light">Back</button>
+              <button v-if="currentQuestion < 5" @click="nextQuestion" :disabled="!currentResponse" class="button is-primary is-fullwidth">Next</button>
+              <button v-if="currentQuestion === 5" @click="submitSurvey" :disabled="!surveyResponses.research" class="button is-primary is-fullwidth">Submit</button>
             </div>
           </transition>
 
-          <!-- Repeat for additional questions -->
-          <transition name="slide-fade" mode="out-in">
-            <div v-if="currentQuestion === 3" key="q3">
-              <p>Would you change your consumer behavior based on a business that does social impact initiatives?</p>
-              <div class="field">
-                <div class="control">
-                  <div v-for="(option, index) in behaviorChangeOptions" :key="index" class="radio">
-                    <label class="radio">
-                      <input type="radio" v-model="surveyResponses.behaviorChange" :value="option.value" />
-                      {{ option.label }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button @click="previousQuestion" class="button is-light">Back</button>
-              <button @click="nextQuestion" :disabled="!surveyResponses.behaviorChange" class="button is-primary is-fullwidth">Next</button>
-            </div>
-          </transition>
-
-          <transition name="slide-fade" mode="out-in">
-            <div v-if="currentQuestion === 4" key="q4">
-              <p>How likely are you to pay more for a product from a company that supports social impact initiatives?</p>
-              <div class="field">
-                <div class="control">
-                  <div v-for="(option, index) in payMoreOptions" :key="index" class="radio">
-                    <label class="radio">
-                      <input type="radio" v-model="surveyResponses.payMore" :value="option.value" />
-                      {{ option.label }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button @click="previousQuestion" class="button is-light">Back</button>
-              <button @click="nextQuestion" :disabled="!surveyResponses.payMore" class="button is-primary is-fullwidth">Next</button>
-            </div>
-          </transition>
-
-          <transition name="slide-fade" mode="out-in">
-            <div v-if="currentQuestion === 5" key="q5">
-              <p>How often do you research a company’s social impact practices before making a purchase?</p>
-              <div class="field">
-                <div class="control">
-                  <div v-for="(option, index) in researchOptions" :key="index" class="radio">
-                    <label class="radio">
-                      <input type="radio" v-model="surveyResponses.research" :value="option.value" />
-                      {{ option.label }}
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button @click="previousQuestion" class="button is-light">Back</button>
-              <button @click="submitSurvey" :disabled="!surveyResponses.research" class="button is-primary is-fullwidth">Submit</button>
-            </div>
-          </transition>
+          <div v-if="surveySubmitted" class="thank-you-message">
+            <p>Thank you for completing the survey!</p>
+          </div>
         </section>
         <button @click="toggleMinimize" class="button minimize-button">Minimize</button>
       </div>
@@ -111,6 +50,7 @@ export default {
     return {
       isMinimized: false,
       currentQuestion: 1,
+      surveySubmitted: false,
       surveyResponses: {
         generation: null,
         socialImpact: null,
@@ -146,6 +86,16 @@ export default {
       ],
     };
   },
+  computed: {
+    currentResponse: {
+      get() {
+        return this.surveyResponses[this.getCurrentKey()];
+      },
+      set(value) {
+        this.surveyResponses[this.getCurrentKey()] = value;
+      }
+    }
+  },
   methods: {
     nextQuestion() {
       this.currentQuestion += 1;
@@ -153,30 +103,63 @@ export default {
     previousQuestion() {
       this.currentQuestion -= 1;
     },
-    methods: {
-  submitSurvey() {
-    fetch('/api/submit-survey', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.surveyResponses),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  }
-},
+    submitSurvey() {
+      fetch('/api/submit-survey', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.surveyResponses),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          this.surveySubmitted = true;
+          this.isMinimized = true;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    },
     toggleMinimize() {
       this.isMinimized = !this.isMinimized;
+    },
+    getOptions() {
+      switch (this.currentQuestion) {
+        case 1:
+          return this.generationOptions;
+        case 2:
+          return this.socialImpactOptions;
+        case 3:
+          return this.behaviorChangeOptions;
+        case 4:
+          return this.payMoreOptions;
+        case 5:
+          return this.researchOptions;
+        default:
+          return [];
+      }
+    },
+    getCurrentKey() {
+      switch (this.currentQuestion) {
+        case 1:
+          return 'generation';
+        case 2:
+          return 'socialImpact';
+        case 3:
+          return 'behaviorChange';
+        case 4:
+          return 'payMore';
+        case 5:
+          return 'research';
+        default:
+          return null;
+      }
     },
   },
 };
 </script>
+
 
 <style scoped>
 .survey-container {
@@ -227,6 +210,11 @@ export default {
 
 .survey-widget:hover {
   transform: scale(1.1);
+}
+
+.thank-you-message {
+  text-align: center;
+  margin-top: 20px;
 }
 
 .fade-enter-active, .fade-leave-active {
